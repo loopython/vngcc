@@ -4,66 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
     <title>{{ title }}</title>
-    <style>
-    </style>
 </head>
 
 <body>
-    <div>
-        <a href="/index">Home</a>
+    <div class="navbar">
+        <!-- Logo -->
+        <a href="{{ url_for('index') }}">Home</a>
 
         <div class="dropdown" id="about-us">
-            <a href="/about">About Us</a>
+            <a href="#">About Us</a>
             <div class="dropdown-content">
-                <a href="/intro">Introduction to Vietnam House in GCC</a>
-                <a href="/mission">Mission Statement</a>
-                <a href="/profile">Our Profile</a>
-                <a href="/partners">Our Partners</a>
+                <a href="{{ url_for('about_page', page='intro') }}">Introduction to Vietnam House in GCC</a>
+                <div class="dropdown-submenu">
+                    <a href="{{ url_for('about_page', page='partners') }}">Our Partners</a>
+                    <!-- Submenu for Our Partners -->
+                    <div class="dropdown-content">
+                        <a href="#">Vietnam Embassy in UAE</a>
+                        <a href="#">Vietnam Embassy in Saudi Arabia</a>
+                        <a href="#">UAE Embassy in Vietnam</a>
+                        <a href="#">Saudi Arabia Embassy in Vietnam</a>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="dropdown" id="services">
-            <a href="/services">Services</a>
+            <a href="#">Services</a>
             <div class="dropdown-content">
-                <a href="/tradepromo">Trade Promotion</a>
-                <a href="/consulting">Consulting</a>
-                <a href="/mice">MICE</a>
+                <a href="{{ url_for('services', page='tradepromo') }}">Trade Promotion</a>
+                <a href="{{ url_for('services', page='consulting') }}">Consulting</a>
+                <a href="{{ url_for('services', page='mice') }}">MICE</a>
             </div>
         </div>
 
         <div class="dropdown" id="b2b">
-            <a href="/b2b">B2B</a>
+            <a href="#">B2B</a>
             <div class="dropdown-content">
-                <a href="/sbe">Successful Business Events</a>
-                <a href="/uaebe">UAE Business Events</a>
-                <a href="/sabe">Saudi Arabia Business Events</a>
+                <a href="{{ url_for('b2b', page='sbe') }}">Successful Business Events</a>
+                <a href="{{ url_for('b2b', page='uaebe') }}">UAE Business Events</a>
+                <a href="{{ url_for('b2b', page='sabe') }}">Saudi Arabia Business Events</a>
             </div>
         </div>
 
         <div class="dropdown" id="news">
-            <a href="/news">News & Events</a>
+            <a href="#">News & Events</a>
             <div class="dropdown-content">
-                <a href="/latestnews">Latest news press release media coverage related to Vietnam House in GCC.</a>
-                <a href="/upcoming">Upcoming events, seminars, and workshops.</a>
-                <a href="/gallery">Gallery</a>
+                <a href="{{ url_for('news_events', page='latestnews') }}">Latest News</a>
+                <a href="{{ url_for('news_events', page='upcoming') }}">Upcoming Events</a>
+                <a href="{{ url_for('news_events', page='gallery') }}">Gallery</a>
             </div>
         </div>
 
         <div class="dropdown" id="marketprofile">
-            <a href="/marketprofile">Market Profile</a>
+            <a href="#">Market Profile</a>
             <div class="dropdown-content">
-                <a href="/uae">United Arab Emirates</a>
-                <a href="/bahrain">Kingdom of Bahrain</a>
-                <a href="/saudi">Kingdom of Saudi Arabia</a>
-                <a href="/oman">Sultanate of Oman</a>
-                <a href="/qatar">State of Qatar</a>
-                <a href="/kuwait">State of Kuwait</a>
+                <a href="{{ url_for('market_profile', country='uae') }}">UAE</a>
+                <a href="{{ url_for('market_profile', country='saudi') }}">Saudi Arabia</a>
+                <a href="{{ url_for('market_profile', country='oman') }}">Oman</a>
+                <a href="{{ url_for('market_profile', country='qatar') }}">Qatar</a>
+                <a href="{{ url_for('market_profile', country='kuwait') }}">Kuwait</a>
+                <a href="{{ url_for('market_profile', country='bahrain') }}">Bahrain</a>
             </div>
         </div>
 
+        <div class="searchbar">
+            <!-- Search functionality can be added here -->
+        </div>
+
+        <div id="lang">
+            <!-- Language selector can be added here -->
+        </div>
     </div>
+
     {% block content %}{% endblock %}
+
+    <div class="footer">
+        <!-- Footer content -->
+    </div>
 </body>
 
 </html>

@@ -7,9 +7,12 @@ from flask_admin import Admin
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Initialize extensions
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 admin = Admin(app)
 
+# Import routes and models
 from app import routes, models, admin
