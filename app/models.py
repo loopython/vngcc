@@ -17,7 +17,6 @@ class User(UserMixin, db.Model):
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
 
-    # Ensure unique backref name
     posts: so.Mapped[so.WriteOnlyMapped['Post']] = so.relationship('Post', back_populates='author')
 
     def __repr__(self):
@@ -49,7 +48,6 @@ class Post(db.Model):
         nullable=False
     )
 
-    # Use 'overlaps' to resolve the warning related to relationships
     author: so.Mapped['User'] = so.relationship('User', back_populates='posts')
     category: so.Mapped['Category'] = so.relationship('Category', back_populates='posts')
 
@@ -61,13 +59,16 @@ class Category(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(50), unique=True, nullable=False)
 
-    # Use 'overlaps' to resolve the warning related to relationships
     posts: so.Mapped[list['Post']] = so.relationship('Post', back_populates='category')
 
     def __repr__(self):
         return f'<Category {self.name}>'
 
+# Custom admin view for Post
+class PostView(ModelView):
+    form_columns = ["title", "slug", "body", "author", "category"]  # Specify fields you want in the admin form
+
 # Admin views
-admin_view.add_view(ModelView(Post, db.session))
-admin_view.add_view(ModelView(User, db.session))
-admin_view.add_view(ModelView(Category, db.session))
+admin_view.add_view(PostView(Post, db.session))  # Use custom view for Post
+admin_view.add_view(ModelView(User, db.session))  # Use default ModelView for User
+admin_view.add_view(ModelView(Category, db.session))  # Use default ModelView for Category
